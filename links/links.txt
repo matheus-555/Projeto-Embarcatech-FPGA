@@ -1,0 +1,45 @@
+--- HDMI Output with LiteX on the Tang Nano 9K
+https://fabianalvarez.dev/posts/litex/hdmi/
+
+--- litesdcard
+https://github.com/enjoy-digital/litesdcard
+
+--- litex exemplos
+https://github.com/litex-hub/fpga_101
+
+--- litex vexriscv
+https://github.com/litex-hub/linux-on-litex-vexriscv
+
+--- vex riscv
+https://github.com/SpinalHDL/VexRiscv
+
+--- exemplos de projetos com fpga
+https://www.fpga4fun.com/
+
+--- assuntos sobre asic
+https://tinytapeout.com/
+
+--- framework para projetos com asic
+https://github.com/google/skywater-pdk
+
+--- repositório das placas colorlight (placa utilizada neste projeto)
+https://github.com/benitoss/ColorLight_FPGA_boards
+
+--- Exemplo de MakeFile para um riscv implementado em fpga
+https://github.com/JN513/Grande-Risco-5/blob/main/firmware/Makefile
+
+--- Exemplo de script de compilação para um risv implementado em fpga
+https://github.com/JN513/Grande-Risco-5/blob/main/verification_tests/generate_mem.sh
+
+--- Estudos sobre a arquitetura fpga
+https://riscv-programming.org/ale-exercise-book/book/ch01-00-getting-started.html
+
+--- Livro sobre riscv, comentando sobre assembly, arquivo objeto e arquivo executavel
+https://riscv-programming.org/book/riscv-book.html#pf28
+
+--- Repositório oficial do riscv
+https://github.com/riscv/learn
+
+--- Exemplo de implementação em fpga de um processador riscv 
+https://github.com/JN513/Risco-5S
+
