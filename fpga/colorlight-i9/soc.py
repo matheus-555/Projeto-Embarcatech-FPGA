@@ -8,7 +8,7 @@ from litex.soc.cores.spi import SPIMaster
 from litex.soc.cores.bitbang import I2CMaster
 
 # ------------------------------
-# Colorlight i9 platform - CORRIGIDO
+# Colorlight i9 platform
 # ------------------------------
 _io = [
     ("clk25", 0, Pins("P3"), IOStandard("LVCMOS33")),
@@ -41,13 +41,10 @@ class ColorlightPlatform(LatticePlatform):
         LatticePlatform.__init__(self, "LFE5U-45F-6BG381C", _io, toolchain="trellis")
 
 # ------------------------------
-# SoC CORRIGIDO - Funcionará!
+# SoC
 # ------------------------------
 class MySoC(SoCCore):
     def __init__(self, platform, **kwargs):
-        # CORREÇÃO: Deixe o LiteX criar o clock domain automaticamente
-        # NÃO crie cd_sys manualmente!
-        
         SoCCore.__init__(
             self,
             platform,
@@ -87,10 +84,11 @@ def main():
     platform = ColorlightPlatform()
     soc = MySoC(platform)
 
-    builder = Builder(soc, output_dir="build", compile_software=True)
+    # Builder CORRETO para versões modernas do LiteX
+    builder = Builder(soc, output_dir="build", compile_software=True, csr_csv="csr.csv")
     builder.build()
 
-    print("Build completo! Agora a UART deve funcionar.")
+    print("Build completo!")
 
 if __name__ == "__main__":
     main()
