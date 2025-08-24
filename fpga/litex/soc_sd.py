@@ -14,11 +14,11 @@ _io = [
     ("clk25", 0, Pins("H2"), IOStandard("LVCMOS33")),
     
     # LED - Pino correto
-    ("user_led", 0, Pins("P3"), IOStandard("LVCMOS33")),
+    ("user_led", 0, Pins("L2"), IOStandard("LVCMOS33")),
 
     # SPI para SDCard - Pinout correto para Colorlight i9
     ("spi", 0,
-        Subsignal("clk", Pins("U1")),   # SPI CLK
+        Subsignal("clk",  Pins("U1")),  # SPI CLK
         Subsignal("mosi", Pins("T1")),  # SPI MOSI
         Subsignal("miso", Pins("V1")),  # SPI MISO  
         Subsignal("cs_n", Pins("T2")),  # SPI CS
@@ -63,6 +63,11 @@ class SDSoC(SoCCore):
         )
         self.add_csr("sd_spi")
 
+        # ⭐⭐ MÍNIMA MODIFICAÇÃO: Contador para fazer LED piscar ⭐⭐
+        self.counter = Signal(24)  # Contador de 24 bits
+        self.sync += self.counter.eq(self.counter + 1)  # Incrementa a cada clock
+        self.comb += platform.request("user_led").eq(self.counter[23])  # LED pisca com bit mais significativo
+
 # ------------------------------
 # Build
 # ------------------------------
@@ -71,6 +76,7 @@ def main():
     soc = SDSoC(platform)
     builder = Builder(soc, output_dir="build", compile_software=False)
     builder.build()
+    print("✅ Build completo! O LED em L2 deve piscar ~1.5 vezes por segundo.")
 
 if __name__ == "__main__":
     main()
