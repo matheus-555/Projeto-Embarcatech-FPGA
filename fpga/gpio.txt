@@ -1,0 +1,4 @@
+FPGA_PIN    |   PERIFERICO_PIN  |
+T3          |   SD_CARD_CS      |
+
+

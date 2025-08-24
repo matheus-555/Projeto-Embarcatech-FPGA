@@ -10,18 +10,18 @@ from litex.soc.cores.spi import SPIMaster
 # Colorlight i9 platform - PINOS CORRETOS
 # ------------------------------
 _io = [
-    # Clock principal (24MHz onboard) - Pino correto para Colorlight i9
-    ("clk25", 0, Pins("H2"), IOStandard("LVCMOS33")),
+    # Clock principal (25MHz onboard) - Pino correto para Colorlight i9
+    ("clk25", 0, Pins("P3"), IOStandard("LVCMOS33")), # OSCILADOR ONBOARD   (OK)
     
     # LED - Pino correto
-    ("user_led", 0, Pins("L2"), IOStandard("LVCMOS33")),
+    ("user_led", 0, Pins("L2"), IOStandard("LVCMOS33")), # LED ONBOARD  (OK)
 
     # SPI para SDCard - Pinout correto para Colorlight i9
     ("spi", 0,
-        Subsignal("clk",  Pins("U1")),  # SPI CLK
-        Subsignal("mosi", Pins("T1")),  # SPI MOSI
-        Subsignal("miso", Pins("V1")),  # SPI MISO  
-        Subsignal("cs_n", Pins("T2")),  # SPI CS
+        Subsignal("clk",  Pins("N2")),  # SPI CLK   (OK)
+        Subsignal("mosi", Pins("M1")),  # SPI MOSI  (OK)
+        Subsignal("miso", Pins("T2")),  # SPI MISO  (OK)
+        Subsignal("cs_n", Pins("T3")),  # SPI CS    (OK)
         IOStandard("LVCMOS33")
     ),
 
