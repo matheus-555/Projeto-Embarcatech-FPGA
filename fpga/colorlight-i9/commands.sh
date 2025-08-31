@@ -1,31 +1,26 @@
-# entra no ambiente litex
-
-# --- Sintetizar o hardware
+# --- Carregar variaveis de ambiente litex
 source ~/litex/litex-venv/bin/activate
 
-# gera o build
-python3 soc.py
+
+# --- puxa o diretorio onde os arquivos estão puxando as parametrizacoes
+python3 -c "import litex_boards.platforms.colorlight_i5 as p; print(p.__file__)"
+
+
+# --- Compilando a definição de Hardware da colorlight-i5 na colorlight-i9
+$ python3 colorlight_i5.py --board i9 --revision 7.2 --build
+
 
 # carega bitstream na fpga
-openFPGALoader -b colorlight-i9 build/gateware/soc.bit
-
+$ openFPGALoader -b colorlight-i9 ${PWD}/build/colorlight_i5/gateware/colorlight_i5.bit
 
 
 # --- Compilar o software 
-# Compile
-# Na pasta software/
-riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -nostdlib -ffreestanding \
-    -I ../build/software/include/generated -I ../build/software/include \
-    -T ../build/software/include/generated/output_format.ld \
-    sdcard_test.c -o sdcard_test.elf
+$ python3 ${PWD}/software/demo/demo.py --build-path=${PWD}/build/colorlight_i5
 
-riscv64-unknown-elf-objcopy -O binary sdcard_test.elf sdcard_test.bin
 
-# Link (ajuste o caminho do linker.ld se necessário)
-riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -T../include/generated/linker.ld -nostdlib -o firmware.elf main.o -lgcc
+# --- Carregar
+$ litex_term /dev/ttyACM0 --kernel=${PWD}/demo.bin
 
-# Converta para binário
-riscv64-unknown-elf-objcopy -O binary firmware.elf firmware.bin
 
 #Converte inario para hex
 hexdump -v -e '1/4 "%08X\n"' sdcard_test.bin > sdcard_test.hex
