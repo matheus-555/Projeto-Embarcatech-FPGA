@@ -36,7 +36,7 @@ _io_v7_0 = [ # Documented by @smunaut
 
     ("i2c", 0,
         Subsignal("scl", Pins("J20")),
-        Subsignal("sda", Pins("K20")),
+        Subsignal("sda", Pins("K20"), Misc("PULLMODE=UP")),
         IOStandard("LVCMOS33")
     ),
 
