@@ -4,7 +4,17 @@
 #include <generated/csr.h>
 #include <libbase/i2c.h>
 
-#define SENSOR_TEMP_PRESSAO_ADDR 0x3B
+#include "bmp280.h"
+
+
+
+#define SENSOR_TEMP_HUMIDADE_AHT_10_ADDR 0x76UL
+
+
+
+
+
+
 
 
 void i2c_scan_bus(void)
@@ -26,15 +36,6 @@ void i2c_scan_bus(void)
         if (ret) {
             printf("Device found at 0x%02X", address);
             found_devices++;
-            
-            // Identificação de dispositivos comuns
-            if (address == 0x27) printf(" -> PCF8574 (I/O Expander)");
-            else if (address == 0x3C) printf(" -> SSD1306 (OLED Display)");
-            else if (address == 0x68) printf(" -> DS1307 (RTC)");
-            else if (address == 0x50) printf(" -> AT24C32 (EEPROM)");
-            else if (address == 0x48) printf(" -> PCF8591 (ADC)");
-            else if (address == 0x76) printf(" -> BMP280/BME280 (Sensor)");
-            else if (address == 0x77) printf(" -> BMP280/BME280 (Sensor)");
             printf("\n");
         }
     }
@@ -63,21 +64,37 @@ void helloc(void)
     
     // 1. Scan do barramento I2C
     i2c_scan_bus();
+
+
+
     
-    // // 2. Teste de EEPROM (se houver dispositivo em 0x50)
-    // i2c_eeprom_test();
-    // busy_wait(2000000);
+    // Verifica se BMP280 está presente
+    if (!i2c_poll(BMP280_ADDR)) {
+        printf("BMP280 not found at 0x%02X\n", BMP280_ADDR);
+        printf("Try address 0x77 if SDO is HIGH\n");
+        return;
+    }
     
-    // // 3. Teste de registro
-    // i2c_register_test();
-    // busy_wait(2000000);
+    printf("BMP280 found! Initializing...\n");
+    bmp280_init();
     
-    // // 4. Teste de velocidade
-    // i2c_speed_test();
+    char temp_str[16];
+    char press_str[16];
     
-    // printf("======================\n");
-    // printf("I2C Demo Completed!\n");
-    // printf("Connect I2C devices to:\n");
-    // printf("  SDA: PMOD pin\n"); 
-    // printf("  SCL: PMOD pin\n");
+
+    for(;;)
+    {
+        int32_t temp = bmp280_read_temp();    // Centésimos de grau
+        int32_t press = bmp280_read_pressure(); // Pa
+        
+        format_temp(temp, temp_str);
+        format_pressure(press, press_str);
+        
+        printf("Temp: %s | Press: %s\n", temp_str, press_str);
+
+        busy_wait(1500);
+    }
+
+
+
 }
