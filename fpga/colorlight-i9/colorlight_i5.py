@@ -126,7 +126,20 @@ class BaseSoC(SoCCore):
         )
 
         # SoCCore ----------------------------------------------------------------------------------
-        SoCCore.__init__(self, platform, int(sys_clk_freq), ident = "LiteX SoC on Colorlight " + board.upper(), **kwargs)
+
+        # BEGIN MY CONFIG
+
+        integrated_ram_size = 64 * 1024  # memória on-chip
+        integrated_sram_size = 32 * 1024  # 
+        l2_cache_size = 8 * 1024      # cache L2
+
+        kwargs["integrated_sram_size"] = integrated_sram_size 
+
+        # END MY CONFIG
+
+        SoCCore.__init__(self, platform, int(sys_clk_freq), ident = "LiteX SoC on Colorlight " + board.upper(), 
+                         integrated_main_ram_size=integrated_ram_size,
+                         **kwargs)
 
         # BEGIN MY CONFIGS
 
@@ -158,7 +171,7 @@ class BaseSoC(SoCCore):
             self.add_sdram("sdram",
                 phy           = self.sdrphy,
                 module        = M12L64322A(sys_clk_freq, sdram_rate),
-                l2_cache_size = kwargs.get("l2_size", 8192)
+                l2_cache_size = kwargs.get("l2_size", l2_cache_size)
             )
 
         # Ethernet / Etherbone ---------------------------------------------------------------------

@@ -10,6 +10,7 @@
         "csr.h": "c",
         "stdint.h": "c",
         "ff.h": "c",
-        "spisdcard.h": "c"
+        "spisdcard.h": "c",
+        "stdio.h": "c"
     }
 }
