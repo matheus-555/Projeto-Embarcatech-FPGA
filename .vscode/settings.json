@@ -11,6 +11,7 @@
         "stdint.h": "c",
         "ff.h": "c",
         "spisdcard.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "i2c.h": "c"
     }
 }

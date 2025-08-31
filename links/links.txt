@@ -43,3 +43,5 @@ https://github.com/riscv/learn
 --- Exemplo de implementação em fpga de um processador riscv 
 https://github.com/JN513/Risco-5S
 
+--- Rodando linux na FPGA
+https://www.controlpaths.com/2022/03/28/running-linux-on-a-litex-soc/

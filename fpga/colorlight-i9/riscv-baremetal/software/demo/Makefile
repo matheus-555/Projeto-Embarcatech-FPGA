@@ -1,4 +1,4 @@
-BUILD_DIR=/home/matheus/Desktop/Projeto-Embarcatech-FPGA/fpga/colorlight-i9/build/colorlight_i5
+BUILD_DIR=/home/matheus/Desktop/Projeto-Embarcatech-FPGA/fpga/colorlight-i9/riscv-baremetal/build/colorlight_i5
 SOC_DIRECTORY=/home/matheus/litex/litex/litex/soc
 
 include $(BUILD_DIR)/software/include/generated/variables.mak
