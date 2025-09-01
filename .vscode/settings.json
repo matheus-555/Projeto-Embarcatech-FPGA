@@ -12,6 +12,9 @@
         "ff.h": "c",
         "spisdcard.h": "c",
         "stdio.h": "c",
-        "i2c.h": "c"
+        "i2c.h": "c",
+        "memory": "cpp",
+        "future": "cpp",
+        "istream": "cpp"
     }
 }
